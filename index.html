@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DANZZ VDA STORE</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+  min-height:100vh;
+  background:
+  linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),
+  url('data:image/png;base64,PUT_BACKGROUND_BASE64_HERE');
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+}
+.header{text-align:center;padding:50px 20px}
+.header h1{font-size:36px;letter-spacing:2px}
+.welcome{
+  max-width:650px;margin:20px auto;
+  background:rgba(0,0,0,.4);
+  padding:20px;border-radius:18px;line-height:1.6
+}
+.container{
+  max-width:1100px;margin:auto;padding:25px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px
+}
+.card{
+  background:rgba(0,0,0,.45);
+  border-radius:20px;padding:20px;
+  transition:.3s
+}
+.card:hover{transform:translateY(-6px)}
+.price{color:#00ffe1;font-weight:bold;margin:8px 0}
+.btn{
+  margin-top:12px;padding:12px;border-radius:12px;
+  background:linear-gradient(45deg,#00ffe1,#00b3ff);
+  color:#000;font-weight:bold;text-align:center;cursor:pointer
+}
+#payment{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
+  align-items:center;justify-content:center;z-index:999
+}
+.pay-box{
+  background:#111;padding:25px;border-radius:20px;
+  width:350px;text-align:center
+}
+.pay-box img{width:220px;border-radius:12px;margin:12px 0}
+</style>
+</head>
+
+<body>
+
+<!-- 🔊 MUSIK DJ AUTO PLAY -->
+<audio id="bgMusic" autoplay loop muted>
+  <source src="../musik/dj.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+// paksa autoplay
+document.addEventListener("DOMContentLoaded",()=>{
+  music.play().catch(()=>{});
+});
+
+// buka suara pas klik pertama
+document.addEventListener("click",()=>{
+  if(music.muted){
+    music.muted=false;
+    music.volume=0.6;
+    music.play();
+  }
+},{once:true});
+</script>
+
+<div class="header">
+  <h1>🔥 DANZZ VDA STORE 🔥</h1>
+  <div class="welcome">
+    Halo 👋 Selamat datang di <b>Danzz ID</b><br><br>
+    Pilih produk → bayar → konfirmasi otomatis ke WhatsApp 🚀
+  </div>
+</div>
+
+<div class="container">
+<script>
+const produk = [
+["MURID VDA","10K"],
+["MURID TEBAR DERESS","10K"],
+["JASA JEBOL VDAA","INDO 10K / LUAR 15K"],
+["RESS FULL FF / ML","Harga ke Admin"],
+["NEBENG IMPULSE","20K"],
+["JASA JOKI NEBAR 1 HARI","10K (FF BETA)"],
+["AKUN PANCINGAN BUG V2L","10K"]
+];
+
+produk.forEach(p=>{
+document.write(`
+<div class="card">
+<h3>${p[0]}</h3>
+<div class="price">${p[1]}</div>
+<div class="btn" onclick="openPay('${p[0]}')">BUY SEKARANG</div>
+</div>`)
+})
+</script>
+</div>
+
+<div id="payment">
+<div class="pay-box">
+<h3>💳 PAYMENT</h3>
+
+<img src="data:image/png;base64,PUT_QRIS_BASE64_HERE">
+
+<p>GOPAY : <b>0882017281051</b></p>
+<p>DANA : <b>0881023613577</b></p>
+
+<a id="waLink" class="btn">Konfirmasi WhatsApp</a>
+<div class="btn" style="background:#333;color:#fff" onclick="closePay()">Tutup</div>
+</div>
+</div>
+
+<script>
+function openPay(nama){
+let wa="62882017281051";
+let text=`Min saya udah buy ${nama} dan saya udah bayar`;
+document.getElementById("waLink").href=
+"https://wa.me/"+wa+"?text="+encodeURIComponent(text);
+document.getElementById("payment").style.display="flex";
+}
+function closePay(){
+document.getElementById("payment").style.display="none";
+}
+</script>
+
+</body>
+</html>
